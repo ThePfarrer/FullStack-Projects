@@ -1,10 +1,10 @@
 # Routes
 # Users routes
-POST    /api/users              controllers.UserController
-GET     /api/users              controllers.UserController
-GET     /api/users/:userId      controllers.UserController  
-PUT     /api/users/:userId      controllers.UserController
-DELETE  /api/users/:userId      controllers.UserController
+POST    /api/users              controllers.UserController.create()
+GET     /api/users              controllers.UserController.list()
+GET     /api/users/:userId      controllers.UserController.read(userId: String)
+PUT     /api/users/:userId      controllers.UserController.update(userId: String)
+DELETE  /api/users/:userId      controllers.UserController.remove(userId: String)
 
 # Auth routes
 POST    /auth/signin            controllers.AuthController
