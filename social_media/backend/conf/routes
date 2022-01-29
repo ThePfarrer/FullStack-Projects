@@ -1,11 +1,13 @@
 # Routes
-# Users routes
-POST    /api/users              controllers.UserController.create()
-GET     /api/users              controllers.UserController.list()
-GET     /api/users/:userId      controllers.UserController.read(userId: String)
-PUT     /api/users/:userId      controllers.UserController.update(userId: String)
-DELETE  /api/users/:userId      controllers.UserController.remove(userId: String)
+# Persons routes
+POST    /api/persons                controllers.PersonController.create()
+GET     /api/persons                controllers.PersonController.list()
+GET     /api/persons/:personId      controllers.PersonController.read(personId: String)
+PUT     /api/persons/:personId      controllers.PersonController.update(personId: Long)
+DELETE  /api/persons/:personId      controllers.PersonController.remove(personId: Long)
 
 # Auth routes
-POST    /auth/signin            controllers.AuthController
-GET     /auth/signout           controllers.AuthController
+POST    /auth/signin                controllers.AuthController.signIn()
+GET     /auth/signout               controllers.AuthController.signOut()
+
+GET     /                           controllers.PersonController.index()
