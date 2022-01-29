@@ -20,20 +20,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-    const classes = useStyles()
-    return(
-        <Card className={classes.card}>
-            <Typography variant="h6" className={classes.title}>
-                Home Page
-            </Typography>
-            <CardMedia className={classes.media} image={logo} title=""/>
-            <CardContent>
-                <Typography variant="body2" component="p">
-                    Welcome to the Scala React Postgres Skeleton home page.
-                </Typography>
-            </CardContent>
-        </Card>
-    )
-}
+  const classes = useStyles();
+  return (
+    <Card className={classes.card}>
+      <Typography variant="h6" className={classes.title}>
+        Home Page
+      </Typography>
+      <CardMedia className={classes.media} image={logo} title="logo" />
+      <CardContent>
+        <Typography variant="body2" component="p">
+          Welcome to the Scala React Postgres Skeleton home page.
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+};
 
-export default Home
+export default Home;
