@@ -1,6 +1,6 @@
 const create = async (user) => {
   try {
-    let response = await fetch("/api/persons/", {
+    let response = await fetch("/api/persons", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -16,7 +16,7 @@ const create = async (user) => {
 
 const list = async (signal) => {
   try {
-    let response = await fetch("/api/persons/", {
+    let response = await fetch("/api/persons", {
       method: "GET",
       signal: signal,
     });
@@ -68,7 +68,7 @@ const remove = async (params, credentials) => {
         Accept: "application/json",
         "Content-Type": "application/json",
         Authorization: "Bearer" + credentials.t,
-      }
+      },
     });
     return await response.json();
   } catch (err) {
@@ -76,4 +76,4 @@ const remove = async (params, credentials) => {
   }
 };
 
-export { create, list, read, update, remove}
+export { create, list, read, update, remove };
