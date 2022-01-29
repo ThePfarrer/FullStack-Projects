@@ -2,7 +2,7 @@
 # Persons routes
 POST    /api/persons                controllers.PersonController.create()
 GET     /api/persons                controllers.PersonController.list()
-GET     /api/persons/:personId      controllers.PersonController.read(personId: String)
+GET     /api/persons/:personId      controllers.PersonController.read(personId: Long)
 PUT     /api/persons/:personId      controllers.PersonController.update(personId: Long)
 DELETE  /api/persons/:personId      controllers.PersonController.remove(personId: Long)
 

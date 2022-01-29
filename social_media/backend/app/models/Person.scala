@@ -84,6 +84,10 @@ class Persons @Inject() (
     )
   }
 
+  def get(id: Long): Future[Option[Person]] = {
+    dbConfig.db.run(persons.filter(_.id === id).result.headOption)
+  }
+
   def get(email: String): Future[Option[Person]] = {
     dbConfig.db.run(persons.filter(_.email === email).result.headOption)
   }

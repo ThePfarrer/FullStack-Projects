@@ -15,6 +15,10 @@ class PersonService @Inject() (persons: Persons) {
     persons.delete(id)
   }
 
+  def getPerson(id: Long): Future[Option[Person]] = {
+    persons.get(id)
+  }
+
   def getPerson(email: String): Future[Option[Person]] = {
     persons.get(email)
   }

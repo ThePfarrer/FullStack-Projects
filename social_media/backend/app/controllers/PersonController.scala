@@ -68,8 +68,8 @@ class PersonController @Inject() (
     }
   }
 
-  def read(email: String) = Action.async { implicit request =>
-    personService.getPerson(email).map {
+  def read(id: Long) = Action.async { implicit request =>
+    personService.getPerson(id).map {
       case Some(person) => Ok(Json.toJson(person))
       case None         => NotFound
     }
