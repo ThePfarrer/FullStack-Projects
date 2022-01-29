@@ -16,8 +16,6 @@ class PersonController @Inject() (
 )(implicit ec: ExecutionContext)
     extends BaseController {
 
-  def index() = TODO
-
   def create() = Action(parse.json).async { implicit request =>
     val emailPattern = "\\w+@\\w+.\\w{2,10}".r
     val json = request.body
@@ -75,15 +73,16 @@ class PersonController @Inject() (
     }
   }
 
+  // TODO
   def update(id: Long) = Action.async { implicit request =>
     personService.updatePerson(id) map { res =>
-      Redirect(routes.PersonController.index)
+      Ok(Json.toJson(res))
     }
   }
 
   def remove(id: Long) = Action.async { implicit request =>
     personService.deletePerson(id) map { res =>
-      Ok("User deleted!!!")
+      Ok(Json.toJson(res))
     }
   }
 

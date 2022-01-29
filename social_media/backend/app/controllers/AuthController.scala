@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 import play.api.mvc._
 import play.api.libs.json._
-import models.{Person, SignInRequest}
+import models.{Person, SignInRequest, Auth, PersonAuth}
 import services.PersonService
 import org.mindrot.jbcrypt.BCrypt
 import pdi.jwt.{JwtJson, JwtAlgorithm}
@@ -17,9 +17,7 @@ class AuthController @Inject() (
     personService: PersonService
 )(implicit ec: ExecutionContext)
     extends BaseController {
-// class AuthController @Inject() (val controllerComponents: ControllerComponents)
-//     extends BaseController {
-  
+
   val key = "secretKey"
   val algo = JwtAlgorithm.HS256
 
@@ -41,17 +39,8 @@ class AuthController @Inject() (
               if (BCrypt.checkpw(data.password, person.password)) {
                 val claim = Json.toJsObject(Map("id" -> person.id))
                 val token = JwtJson.encode(claim, key, algo)
-                
-                println(token)
                 val responseBody = Json.toJson(
-                  token,
-                  Map(
-                    "person" -> Map(
-                      "id" -> person.id.toString,
-                      "name" -> person.name,
-                      "email" -> person.email
-                    )
-                  )
+                  Auth(token, PersonAuth(person.id, person.name, person.email))
                 )
                 Future {
                   Ok(responseBody).withCookies(Cookie("t", token, Some(100)))

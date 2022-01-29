@@ -9,5 +9,3 @@ DELETE  /api/persons/:personId      controllers.PersonController.remove(personId
 # Auth routes
 POST    /auth/signin                controllers.AuthController.signIn()
 GET     /auth/signout               controllers.AuthController.signOut()
-
-GET     /                           controllers.PersonController.index()
