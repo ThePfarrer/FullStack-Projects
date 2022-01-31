@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
 }));
+
 const SignUp = () => {
   const classes = useStyles();
   const [values, setValues] = useState({
@@ -65,6 +66,7 @@ const SignUp = () => {
       created: "",
       updated: "",
     };
+
     create(user).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
@@ -130,7 +132,7 @@ const SignUp = () => {
           </Button>
         </CardActions>
       </Card>
-      <Dialog open={values.open} disableBackdropClick={true}>
+      <Dialog open={values.open} disablebackdropclick="true">
         <DialogTitle>New Account</DialogTitle>
         <DialogContent>
           <DialogContentText>
