@@ -91,7 +91,7 @@ class Persons @Inject() (
           )
         )
     )
-    dbConfig.db.run(persons.filter(_.id === id).result.headOption)
+    get(id)
   }
 
   def get(id: Long): Future[Option[Person]] = {
