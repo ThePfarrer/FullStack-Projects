@@ -73,11 +73,22 @@ class PersonController @Inject() (
     }
   }
 
-  // TODO
-  def update(id: Long) = Action.async { implicit request =>
-    personService.updatePerson(id) map { res =>
-      Ok(Json.toJson(res))
-    }
+  def update(id: Long) = Action(parse.json).async { implicit request =>
+    val json = request.body
+    json
+      .validate[Person]
+      .fold(
+        errors =>
+          Future {
+            BadRequest(Json.toJson(Map("error" -> "Request body is invalid")))
+          },
+        data => {
+          personService.updatePerson(id, data) map { res =>
+            Ok(Json.toJson(res))
+          }
+        }
+      )
+
   }
 
   def remove(id: Long) = Action.async { implicit request =>

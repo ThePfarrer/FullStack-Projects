@@ -23,8 +23,8 @@ class PersonService @Inject() (persons: Persons) {
     persons.get(email)
   }
 
-  def updatePerson(id: Long): Future[Int] = {
-    persons.update(id)
+  def updatePerson(id: Long, person: Person): Future[Option[Person]] = {
+    persons.update(id, person)
   }
 
   def listAllPersons: Future[Seq[PersonList]] = {

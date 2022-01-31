@@ -7,6 +7,7 @@ import slick.jdbc.PostgresProfile.api._
 import com.google.inject.Inject
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import slick.jdbc.JdbcProfile
+import org.mindrot.jbcrypt.BCrypt
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -64,7 +65,6 @@ class Persons @Inject() (
   val persons = TableQuery[PersonTableDef]
 
   def add(person: Person): Future[String] = {
-    val matches = dbConfig.db.run(persons.filter(_.id === person.id).result)
     dbConfig.db
       .run(persons += person)
       .map(res => "person successfully added")
@@ -77,11 +77,21 @@ class Persons @Inject() (
     dbConfig.db.run(persons.filter(_.id === id).delete)
   }
 
-  // TODO
-  def update(id: Long): Future[Int] = {
+  def update(id: Long, person: Person): Future[Option[Person]] = {
     dbConfig.db.run(
-      persons.filter(_.id === id).map(_.name).update("I am a test")
+      persons
+        .filter(_.id === id)
+        .map(p => (p.name, p.email, p.password, p.updated))
+        .update(
+          (
+            person.name,
+            person.email,
+            BCrypt.hashpw(person.password, BCrypt.gensalt()),
+            OffsetDateTime.now.format(DateTimeFormatter.ISO_DATE_TIME)
+          )
+        )
     )
+    dbConfig.db.run(persons.filter(_.id === id).result.headOption)
   }
 
   def get(id: Long): Future[Option[Person]] = {
